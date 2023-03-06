@@ -22,7 +22,6 @@ function addTask(event) {
     };
 
     tasks.push(task);
-		console.log(tasks);
 		tasks = sortTasks(tasks); // ordena as tarefas após adicionar a nova tarefa
     addTaskToDOM(task);
 		updateTaskList()
@@ -48,38 +47,40 @@ function updateTaskList() {
 }
 
 function addTaskToDOM(task) {
-    const taskItem = document.createElement('li');
-    taskItem.dataset.taskId = task.id;
+  const taskItem = document.createElement('li');
+  taskItem.dataset.taskId = task.id;
 
-    const taskText = document.createElement('span');
-    taskText.textContent = task.text;
+  const taskText = document.createElement('span');
+  taskText.textContent = task.text;
 
-    const editButton = document.createElement('button');
-    editButton.textContent = 'Editar';
-    editButton.classList.add('edit');
+  const editButton = document.createElement('button');
+  editButton.textContent = 'Editar';
+  editButton.classList.add('edit');
 
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Excluir';
-    deleteButton.classList.add('delete');
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Excluir';
+  deleteButton.classList.add('delete');
 
-    const completeCheckbox = document.createElement('input');
-    completeCheckbox.type = 'checkbox';
-    completeCheckbox.checked = task.completed;
-    completeCheckbox.classList.add('complete');
+  const completeCheckbox = document.createElement('input');
+  completeCheckbox.type = 'checkbox';
+  completeCheckbox.checked = task.completed;
+  completeCheckbox.classList.add('complete');
 
-    if (task.completed) {
-        taskItem.classList.add('complete');
-    }
+  if (task.completed) {
+    taskItem.classList.add('complete');
+    taskText.style.textDecoration = 'line-through';
+    taskText.style.color = 'gray';
+  }
 
-    taskItem.appendChild(completeCheckbox);
-    taskItem.appendChild(taskText);
-    taskItem.appendChild(editButton);
-    taskItem.appendChild(deleteButton);
-    taskList.appendChild(taskItem);
+  taskItem.appendChild(completeCheckbox);
+  taskItem.appendChild(taskText);
+  taskItem.appendChild(editButton);
+  taskItem.appendChild(deleteButton);
+  taskList.appendChild(taskItem);
 
-    editButton.addEventListener('click', editTask);
-    deleteButton.addEventListener('click', deleteTask);
-    completeCheckbox.addEventListener('change', toggleComplete);
+  editButton.addEventListener('click', editTask);
+  deleteButton.addEventListener('click', deleteTask);
+  completeCheckbox.addEventListener('change', toggleComplete);
 }
 
 function sortTasks(tasks) {

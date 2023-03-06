@@ -61,3 +61,7 @@ li button.delete {
 	background-color: #dc3545;
 	color: #fff;
 }
+
+.complete {
+  background-color: #7FFF7F;
+}
