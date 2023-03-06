@@ -65,3 +65,8 @@ li button.delete {
 .complete {
   background-color: #7FFF7F;
 }
+
+/*coloca margin top no botão de adicionar*/
+button[type="submit"] {
+	margin-top: 10px;
+}
