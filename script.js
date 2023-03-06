@@ -68,8 +68,6 @@ function addTaskToDOM(task) {
 
   if (task.completed) {
     taskItem.classList.add('complete');
-    taskText.style.textDecoration = 'line-through';
-    taskText.style.color = 'gray';
   }
 
   taskItem.appendChild(completeCheckbox);
@@ -131,6 +129,8 @@ function toggleComplete(event) {
     const index = tasks.findIndex(task => task.id === taskId);
     tasks[index].completed = event.target.checked;
     saveTasks();
+		tasks = sortTasks(tasks); // adiciona a chamada para a função sortTasks()
+		updateTaskList() // adiciona a chamada para a função updateTaskList()
 
     taskItem.classList.toggle('complete');
 		taskItem.style.backgroundColor = event.target.checked ? '#7FFF7F' : '';
