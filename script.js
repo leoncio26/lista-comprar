@@ -22,11 +22,29 @@ function addTask(event) {
     };
 
     tasks.push(task);
+		console.log(tasks);
+		tasks = sortTasks(tasks); // ordena as tarefas após adicionar a nova tarefa
     addTaskToDOM(task);
+		updateTaskList()
     saveTasks();
 
     taskInput.value = '';
     taskInput.focus();
+}
+
+function updateTaskList() {
+  // Obtém a lista ul
+  const ul = document.querySelector('#task-list');
+
+  // Remove todos os itens da lista
+  while (ul.firstChild) {
+    ul.removeChild(ul.firstChild);
+  }
+
+  // Adiciona cada tarefa ordenada na lista
+  for (const task of tasks) {
+    addTaskToDOM(task);
+  }
 }
 
 function addTaskToDOM(task) {
@@ -62,6 +80,20 @@ function addTaskToDOM(task) {
     editButton.addEventListener('click', editTask);
     deleteButton.addEventListener('click', deleteTask);
     completeCheckbox.addEventListener('change', toggleComplete);
+}
+
+function sortTasks(tasks) {
+  const sortedTasks = tasks.sort((a, b) => {
+    if (a.completed && !b.completed) {
+      return 1;
+    } else if (!a.completed && b.completed) {
+      return -1;
+    } else {
+      return a.text.localeCompare(b.text);
+    }
+  });
+
+  return sortedTasks;
 }
 
 function editTask(event) {
@@ -111,6 +143,7 @@ function loadTasks() {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
         tasks = JSON.parse(savedTasks);
+				tasks = sortTasks(tasks); // Ordena as tarefas após carregar do localStorage
         tasks.forEach(addTaskToDOM);
     }
 }
