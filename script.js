@@ -9,6 +9,12 @@ function addTask(event) {
     const text = taskInput.value.trim();
     if (text === '') return;
 
+		const isTaskExists = tasks.find((task) => task.text.toLowerCase() === text.toLowerCase());
+		if (isTaskExists) {
+			alert('A tarefa já existe!');
+			return;
+		}
+
     const task = {
         id: Date.now(),
         text,
@@ -94,6 +100,7 @@ function toggleComplete(event) {
     saveTasks();
 
     taskItem.classList.toggle('complete');
+		taskItem.style.backgroundColor = event.target.checked ? '#7FFF7F' : '';
 }
 
 function saveTasks() {
